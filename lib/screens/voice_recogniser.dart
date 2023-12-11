@@ -4,7 +4,7 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import '../components/text_field.dart';
 
 class SpeechScreen extends StatefulWidget {
-  String? text;
+  
   @override
   _SpeechScreenState createState() => _SpeechScreenState();
 }

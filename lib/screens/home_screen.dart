@@ -5,6 +5,7 @@ import 'package:social_media/components/drawer.dart';
 import 'package:social_media/components/text_field.dart';
 import 'package:social_media/components/wall_post.dart';
 import 'package:social_media/screens/profile_page.dart';
+import 'package:social_media/screens/voice_recogniser.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -68,6 +69,7 @@ class _HomePageState extends State<HomePage> {
                 if (snapshot.hasData) {
                   return ListView.builder(
                       itemCount: snapshot.data!.docs.length,
+                      reverse: true,
                       itemBuilder: (context, index) {
                         final post = snapshot.data!.docs[index];
                         return Center(
@@ -108,6 +110,12 @@ class _HomePageState extends State<HomePage> {
                       textController.clear();
                     },
                     icon: const Icon(Icons.arrow_circle_up),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      showFullScreenContentCreated(context);
+                    },
+                    icon: const Icon(Icons.mic),
                   )
                 ],
               ),
@@ -119,4 +127,20 @@ class _HomePageState extends State<HomePage> {
           ],
         ));
   }
+}
+
+Future<void> showFullScreenContentCreated(context,) async {
+  // await getAnswerSheetData(rowData);
+
+  // double contentWidth = (MediaQuery.of(context).size.width) / 15;
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: SizedBox(
+          child: SizedBox(width: 500, height: 300, child: SpeechScreen()),
+        ),
+      );
+    },
+  );
 }
