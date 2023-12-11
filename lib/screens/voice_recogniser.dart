@@ -132,15 +132,15 @@ class _SpeechScreenState extends State<SpeechScreen> {
                   SizedBox(
                     child: _speech!.isListening
                         ? Text(
-                            "",
+                            "Listening...",
                             style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.bold),
                           )
                         : Text(
                             '',
                             style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.bold),
                           ),
                   ),
