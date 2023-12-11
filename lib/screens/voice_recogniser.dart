@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-
 import '../components/text_field.dart';
 
 class SpeechScreen extends StatefulWidget {
@@ -95,7 +94,7 @@ class _SpeechScreenState extends State<SpeechScreen> {
                         backgroundColor: Colors.grey,
                         child: Icon(Icons.close),
                         onPressed: () {
-                          Navigator.pop(context);
+                         Navigator.pop(context, textEditingController.text);
                         }),
                   )
                 ],

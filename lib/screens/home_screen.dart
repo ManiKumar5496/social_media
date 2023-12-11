@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final currentUser = FirebaseAuth.instance.currentUser!;
   final textController = TextEditingController();
-
+  ScrollController scrollController = ScrollController();
 //Signout method
   void signOut() async {
     await FirebaseAuth.instance.signOut();
@@ -68,8 +68,8 @@ class _HomePageState extends State<HomePage> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return ListView.builder(
+                      controller: scrollController,
                       itemCount: snapshot.data!.docs.length,
-                      reverse: true,
                       itemBuilder: (context, index) {
                         final post = snapshot.data!.docs[index];
                         return Center(
@@ -112,8 +112,13 @@ class _HomePageState extends State<HomePage> {
                     icon: const Icon(Icons.arrow_circle_up),
                   ),
                   IconButton(
-                    onPressed: () {
-                      showFullScreenContentCreated(context);
+                    onPressed: () async {
+                      var result = await showFullScreenContentCreated(context);
+                      if (result != null) {
+                        setState(() {
+                          textController.text = result;
+                        });
+                      }
                     },
                     icon: const Icon(Icons.mic),
                   )
@@ -129,16 +134,15 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Future<void> showFullScreenContentCreated(context,) async {
-  // await getAnswerSheetData(rowData);
-
-  // double contentWidth = (MediaQuery.of(context).size.width) / 15;
-  return showDialog<void>(
+Future<String?> showFullScreenContentCreated(
+  context,
+) async {
+  return showDialog<String>(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         content: SizedBox(
-          child: SizedBox(width: 500, height: 300, child: SpeechScreen()),
+          child: SizedBox(width: 400, height: 300, child: SpeechScreen()),
         ),
       );
     },
